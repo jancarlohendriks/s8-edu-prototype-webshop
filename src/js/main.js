@@ -54,14 +54,7 @@ function animate() {
   stats.update();
 }
 
-// Load the GLTF file
-const loader = new GLTFLoader();
-async function loadModel(index) {
-  const modelPath = `./assets/models/${models[index]}.gltf?url`;
-  const gltf = await loader.loadAsync(modelPath);
-  const object = gltf.scene;
-  scene.add(object);
-
+function centerCamera(object) {
   const boundingBox = new THREE.Box3().setFromObject(object);
   const boundingBoxCenter = new THREE.Vector3();
   boundingBox.getCenter(boundingBoxCenter);
@@ -79,7 +72,16 @@ async function loadModel(index) {
 
   camera.position.set(cameraDistance, cameraDistance, cameraDistance);
   camera.lookAt(cameraTarget);
+}
 
+// Load the GLTF file
+const loader = new GLTFLoader();
+async function loadModel(index) {
+  const modelPath = `./assets/models/${models[index]}.gltf?url`;
+  const gltf = await loader.loadAsync(modelPath);
+  const object = gltf.scene;
+  scene.add(object);
+  centerCamera(object);
   animate();
   object.position.set(0, -8, 0);
 }
@@ -91,24 +93,7 @@ function btnPressed() {
   loader.load(modelPath, function (gltf) {
     const object = gltf.scene;
     scene.add(object);
-
-    const boundingBox = new THREE.Box3().setFromObject(object);
-    const boundingBoxCenter = new THREE.Vector3();
-    boundingBox.getCenter(boundingBoxCenter);
-    const boundingBoxSize = new THREE.Vector3();
-    boundingBox.getSize(boundingBoxSize);
-    const distance = Math.max(
-      boundingBoxSize.x,
-      boundingBoxSize.y,
-      boundingBoxSize.z
-    );
-
-    const cameraDistance = distance / Math.sin(Math.PI / 8);
-    const cameraTarget = new THREE.Vector3();
-    boundingBox.getCenter(cameraTarget);
-
-    camera.position.set(cameraDistance, cameraDistance, cameraDistance);
-    camera.lookAt(cameraTarget);
+    centerCamera(object);
     animate();
     object.position.set(0, -8, 0);
   });
