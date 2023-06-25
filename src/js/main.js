@@ -2,37 +2,25 @@ import models from "./lib/models";
 import { scene, loadModel } from "./scene";
 
 function btnPressed() {
-  window.currentModelIndex = (window.currentModelIndex + 1) % models.length;
-  scene.remove(scene.children.find((child) => child.type === "Group"));
-  loadModel(window.currentModelIndex);
-
-  const m = models.findIndex(
-    (x) => x.includes(skin) && x.includes(height) && x.includes(weight)
+  const index = models.findIndex(
+    (model) =>
+      model.includes(skin) && model.includes(height) && model.includes(weight)
   );
-  console.log(m);
-
-  // console.log(models.indexOf(m[0]));
-  // console.log(skin, height, weight);
+  scene.remove(scene.children.find((child) => child.type === "Group"));
+  loadModel(index);
 }
 
 const skinControl = document.getElementById("skin");
-skinControl.addEventListener("change", function (e) {
-  // console.log(e.target.value);
-  skin = this.value;
-});
 let skin = skinControl.value;
+skinControl.addEventListener("change", (e) => (skin = e.target.value));
 
 const heightControl = document.getElementById("height");
-heightControl.addEventListener("change", function (e) {
-  height = this.value;
-});
 let height = heightControl.value;
+heightControl.addEventListener("change", (e) => (height = e.target.value));
 
 const weightControl = document.getElementById("weight");
-weightControl.addEventListener("change", function (e) {
-  weight = this.value;
-});
 let weight = weightControl.value;
+weightControl.addEventListener("change", (e) => (weight = e.target.value));
 
 const btn = document.getElementById("apply");
 btn.addEventListener("click", btnPressed);

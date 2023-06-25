@@ -16,20 +16,29 @@
 <body>
 	<div id="app">
 		<div class="controls">
-			<select name="skin" id="skin">
-				<option value="dark">dark</option>
-				<option value="light">light</option>
-			</select>
-			<select name="height" id="height">
-				<option value="short">short</option>
-				<option value="mid">mid</option>
-				<option value="long">long</option>
-			</select>
-			<select name="weight" id="weight">
-				<option value="small">small</option>
-				<option value="regular">regular</option>
-				<option value="big">big</option>
-			</select>
+			<div class="control">
+				<label for="skin">Skin</label>
+				<select name="skin" id="skin">
+					<option value="dark">dark</option>
+					<option value="light">light</option>
+				</select>
+			</div>
+			<div class="control">
+				<label for="Height">Height</label>
+				<select name="height" id="height">
+					<option value="short">short</option>
+					<option value="mid">mid</option>
+					<option value="long">long</option>
+				</select>
+			</div>
+			<div class="control">
+				<label for="Weight">Weight</label>
+				<select name="weight" id="weight">
+					<option value="small">small</option>
+					<option value="regular">regular</option>
+					<option value="big">big</option>
+				</select>
+			</div>
 			<button id="apply">Apply</button>
 		</div>
 	</div>
