@@ -1,0 +1,8 @@
+.controls {
+  position: fixed;
+  right: 0;
+}
+
+#apply {
+  background-color: red;
+}

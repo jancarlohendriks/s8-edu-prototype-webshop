@@ -2,37 +2,15 @@ import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import Stats from "three/examples/jsm/libs/stats.module";
-import createCamera from "./lib/camera.js";
-import { createRenderer } from "./lib/renderer.js";
-
-const models = [
-  "1-male-dark-short-small",
-  "2-male-dark-short-regular",
-  "3-male-dark-short-big",
-  "4-male-dark-mid-small",
-  "5-male-dark-mid-regular",
-  "6-male-dark-mid-big",
-  "7-male-dark-long-small",
-  "8-male-dark-long-regular",
-  "9-male-dark-long-big",
-  "10-male-light-short-small",
-  "11-male-light-short-regular",
-  "12-male-light-short-big",
-  "13-male-light-mid-small",
-  "14-male-light-mid-regular",
-  "15-male-light-mid-big",
-  "16-male-light-long-small",
-  "17-male-light-long-regular",
-  "18-male-light-long-big",
-];
+import models from "./lib/models";
+import createCamera from "./lib/camera";
+import { createRenderer } from "./lib/renderer";
 
 const stats = new Stats();
 document.body.appendChild(stats.dom);
 
-let renderer,
-  scene,
-  controls,
-  currentModelIndex = 0;
+let renderer, scene, controls;
+window.currentModelIndex = 0;
 
 const camera = createCamera();
 
@@ -86,28 +64,6 @@ async function loadModel(index) {
   object.position.set(0, -8, 0);
 }
 
-function btnPressed() {
-  currentModelIndex = (currentModelIndex + 1) % models.length;
-  scene.remove(scene.children.find((child) => child.type === "Group"));
-  loadModel(currentModelIndex);
-  // const modelPath = `./assets/models/${models[currentModelIndex]}.glb?url`;
-  // loader.load(modelPath, function (gltf) {
-  //   const object = gltf.scene;
-  //   scene.add(object);
-  //   centerCamera(object);
-  //   animate();
-  //   object.position.set(0, -8, 0);
-  // });
-}
-
-const btn = document.createElement("button");
-btn.addEventListener("click", btnPressed);
-btn.innerText = "button";
-btn.style.background = "red";
-btn.style.position = "fixed";
-btn.style.right = "0";
-document.body.appendChild(btn);
-
 function onWindowResize() {
   camera.aspect = window.innerWidth / window.innerHeight;
   camera.updateProjectionMatrix();
@@ -116,10 +72,6 @@ function onWindowResize() {
 window.addEventListener("resize", onWindowResize, false);
 window.addEventListener("load", onWindowResize, false);
 
-loadModel(0);
+loadModel(currentModelIndex);
 
-window.modelIndex = 0;
-
-export function hello() {
-  console.log(scene);
-}
+export { scene, loadModel };

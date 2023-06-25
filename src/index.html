@@ -8,15 +8,31 @@
 	<title>Vite App</title>
 	<link rel="stylesheet" href="./css/reset.css">
 	<link rel="stylesheet" href="./css/base.css">
+	<link rel="stylesheet" href="./css/styles.css">
 	<script type="module" src="js/scene.js"></script>
 	<script type="module" src="js/main.js"></script>
 </head>
 
 <body>
-	<div id="app"></div>
-	<script>
-		console.log(window.hello)
-	</script>
+	<div id="app">
+		<div class="controls">
+			<select name="skin" id="skin">
+				<option value="dark">dark</option>
+				<option value="light">light</option>
+			</select>
+			<select name="height" id="height">
+				<option value="short">short</option>
+				<option value="mid">mid</option>
+				<option value="long">long</option>
+			</select>
+			<select name="weight" id="weight">
+				<option value="small">small</option>
+				<option value="regular">regular</option>
+				<option value="big">big</option>
+			</select>
+			<button id="apply">Apply</button>
+		</div>
+	</div>
 </body>
 
 </html>
